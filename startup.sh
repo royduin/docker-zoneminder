@@ -71,10 +71,7 @@ else
     echo "waiting for mysql ..."
   done
 
-  # check if database is empty and fill it if necessary 
-  EMPTYDATABASE=$(mysql -u$ZM_DB_USER -p$ZM_DB_PASS --host=$ZM_DB_HOST --port=$ZM_DB_PORT --batch --skip-column-names -e "use ${ZM_DB_NAME} ; show tables;" | wc -l )
-  # [ -f /var/cache/zoneminder/configured ]
-  if [[ $EMPTYDATABASE != 0 ]]; then
+  if [ -f /var/cache/zoneminder/configured ]; then
         echo 'database already configured.'
 	zmupdate.pl -nointeractive
         rm -rf /var/run/zm/* 
